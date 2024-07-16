@@ -1,4 +1,6 @@
 #!/bin/sh
 
+echo "Running database migrations..."
 flask db upgrade
-chmod +x migrate.sh
+echo "Database migrations complete."
+
