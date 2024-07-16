@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<style>
+  .jumbotron{
+    margin-bottom: 0px;
+  }
+  
+   ::selection { 
+				color: white; 
+				background-color: rgb(126, 0, 128); 
+			} 
+		
+			.btn{ 
+			position: relative; 
+			font-size: 18px; 
+			font-weight: bold; 
+			padding: 10px 20px; 
+			background: rgb(164, 150, 150); 
+			overflow: hidden; 
+			border-radius: 10px; 
+			border: 2px solid; 
+			color: #353379; 
+			z-index: 1; 
+			transition: 0.5s all ease; 
+			} 
+		
+			.btn:hover { 
+			color: white; 
+			cursor: pointer; 
+			border: 0px; 
+			} 
+
+			.btn:active { 
+			transform: scale(0.85); 
+			} 
+		
+			.btn:before { 
+			content: ""; 
+			width: 50%; 
+			height: 100%; 
+			margin: auto; 
+			position: absolute; 
+			top: 0%; 
+			left: -50%; 
+			top: -100%; 
+			background: #379283; 
+			transition: all 0.6s ease; 
+			z-index: -1; 
+			} 
+
+			.btn:hover:before { 
+			top: 0; 
+			left: 0; 
+			border: 0px; 
+			transform: rotate(180deg); 
+			} 
+		
+			.btn:after { 
+			content: ""; 
+			width: 50%; 
+			height: 100%; 
+			margin: auto; 
+			position: absolute; 
+			top: 0%; 
+			left: 100%; 
+			top: 100%; 
+			background: #35b4ae; 
+			transition: all 0.6s ease; 
+			z-index: -1; 
+			} 
+
+			.btn:hover:after { 
+			top: 0; 
+			left: 50%; 
+			border: 0px; 
+			transform: rotate(180deg); 
+      }
+</style>
+<body>
+  {% include "exam/navbar.html" %}
+<br>
+<section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
+  <div class="container text-center">
+	<marquee behavior="alternate" direction="left" scrollamount="10">
+		<h2 class="display-3 text-info">Unleash Your Potential</h2>
+	</marquee>
+	<marquee behavior="alternate" direction="right" scrollamount="10">
+		<h4 class="display-4 d-none d-sm-block">Attend your exam online!</h4>
+	</marquee>
+    
+    <p class="lead">Sign Up now to start your exam</p>
+
+  
+    <a href="/student/studentsignup" class="btn btn-lg btn-info" style="padding-right: 35px; border-radius: 0%;"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Sign Up as Student</a>
+    
+    <br><br><br>
+  </div>  
+</section>
+  {% include "exam/footer.html" %}
+
+
+</body>
+
+</html>

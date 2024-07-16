@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% extends 'student/studentbase.html' %}
+{% block content %}
+{#{%load static%}#}
+
+<head>
+  <title>View Result</title>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+   
+  </style>
+</head>
+<br><br>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">View Marks</h6>
+    </div>
+    <h6>{{ student.fullname }}</h6>
+    <table class="table table-hover table-bordered" id="dev-table">
+      <thead>
+        <tr>
+          <th>You Scored</th>
+          <td> {{ results[0][1]}} </td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+
+<br><br><br><br><br><br>
+{% endblock content %}

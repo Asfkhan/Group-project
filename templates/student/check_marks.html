@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% extends 'student/studentbase.html' %}
+{% block content %}
+
+<head>
+  <title>Marks Evaluation</title>
+   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> 
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+  
+  
+  </style>
+</head>
+<br><br>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">My Marks</h6>
+    </div>
+    <table class="table table-hover table-bordered" id="dev-table">
+      <thead>
+        <tr>
+          <th>Student Name </th>
+          <th>Total Marks</th>
+        </tr>
+      </thead>
+       <tr>
+        <td> {{student.fullname}}</td>
+        <td id="marksob"> </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<script>
+  
+    window.addEventListener('beforeunload', function () {
+            // Send logout request on page refresh
+            fetch('/logout', {method: 'GET'});
+        });
+  function getCookie(name){
+      const cokiess = document.cookie.split(";");
+      for (let i = 0; i < cokiess.length; i++) {
+        const cokiesss = cokiess[i].trim();
+        if (cokiesss.startsWith(name + "=")) {
+          return cokiesss.substring(name.length + 1);
+          }
+          }
+      return null;
+  }
+  const markscookie = getCookie("Marks")
+  if (markscookie) {
+    document.getElementById('marksob').textContent = markscookie;
+  } else {
+      console.log('Cookie not found');
+  }
+  
+</script>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock content %}
+

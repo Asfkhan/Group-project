@@ -1,0 +1,30 @@
+{% include "exam/navbar.html" %}
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Student Login Form
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Student Login Panel</h1>
+    {{ wtf.quick_form(loginForm,action=url_for('student_login'))}}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li style="color: red;">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <strong><a href="{{ url_for('contact') }}">Wanna SignUp?Click Here</a></strong>
+</div>
+
+<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br>
+{% include "exam/footer.html" %}
+{% endblock %}

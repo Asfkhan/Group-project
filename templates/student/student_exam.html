@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% extends '/student/studentbase.html' %} {% block content %} 
+{#{% load static%}#}
+<head>
+  <title>Student Exam</title>
+  <link
+    href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+    rel="stylesheet"
+    id="bootstrap-css"
+  />
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+  </style>
+</head>
+<br /><br />
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">
+        Topics in Aptech Certified Python Development Course
+      </h6>
+    </div>
+    <table class="table table-hover table-bordered" id="dev-table">
+      <thead>
+        <tr>
+          <th>Exam Name</th>
+
+          <th>Action</th>
+        </tr>
+      </thead>
+      {% for t in coursedata %}
+      <tr>
+        <td>{{ t[1] }}</td>
+
+        <td><a class="btn btn-success btn-sm" style="border-radius:0px;" href="{{ url_for('start_exam', exam_id = t[0]) }}" id="btn-{{ t[0] }}"><span class="glyphicon glyphicon-check"></span> Attend Exam</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    // Check if the button has been clicked before
+    $(".btn").each(function () {
+      var btnId = $(this).attr("id");
+      if (sessionStorage.getItem(btnId) === "clicked") {
+        $(this).prop("disabled", true);
+        $(this).remove();
+      }
+    });
+
+    // Add event listener to buttons
+    $(".btn").click(function () {
+      var btnId = $(this).attr("id");
+      sessionStorage.setItem(btnId, "clicked");
+      $(this).prop("disabled", true);
+      $(this).remove();
+    });
+  });
+</script>
+<br /><br /><br /><br /><br /><br />
+{% endblock %}

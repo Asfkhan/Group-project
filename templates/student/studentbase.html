@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+{% block title %} {% endblock %}
+
+<style media="screen">
+  .circle {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    /* margin-left: 0%; */
+    /* margin-top: 0%; */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .profile {
+    position: absolute;
+    width: 100px;
+    height: 67px;
+    /* background-size: cover; */
+    /* border-radius: 50%; */
+  }
+  .profiletext {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    animation: rotateText 10s linear infinite;
+  }
+  @keyframes rotateText {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .profiletext span {
+    position: absolute;
+    left: 50%;
+    font-size: 1.2rem;
+    transform-origin: 0 100px;
+  }
+  a:link {
+    text-decoration: none;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Gill Sans", sans-serif;
+  }
+
+  header {
+    position: fixed;
+    background: #22242a;
+    padding: 20px;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .left_area h3 {
+    color: #fff;
+    margin: 0px;
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .left_area span {
+    color: #19b3d3;
+  }
+
+  .logout_btn {
+    padding: 5px;
+    background: #ef5350;
+    text-decoration: none;
+    float: right;
+    margin-top: -30px;
+    margin-right: 40px;
+    border-radius: 2px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    transition: 0.5s;
+  }
+
+  .logout_btn:hover {
+    background: #c04240;
+  }
+
+  .sidebar {
+    background: #2f323a;
+    margin-top: 70px;
+    padding-top: 30px;
+    position: fixed;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    transition: 0.5s;
+    transition-property: left;
+  }
+
+  .sidebar .profile_image {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    /* margin-bottom: 10px; */
+  }
+
+  .sidebar h4 {
+    color: #ccc;
+    margin-top: 0;
+  }
+
+  .sidebar a {
+    color: #fff;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    padding-left: 40px;
+    box-sizing: border-box;
+    transition: 0.5s;
+  }
+
+  .sidebar a:hover {
+    background: #969696;
+    color: white;
+  }
+
+  .sidebar i {
+    padding-right: 10px;
+  }
+
+  label #sidebar_btn {
+    z-index: 1;
+    color: #fff;
+    position: fixed;
+    cursor: pointer;
+    left: 300px;
+    font-size: 20px;
+    margin: 5px 0;
+    transition: 0.5s;
+    transition-property: color;
+  }
+
+  label #sidebar_btn:hover {
+    color: #6b6b6b;
+  }
+
+  #check:checked ~ .sidebar {
+    left: -190px;
+  }
+
+  #check:checked ~ .sidebar a span {
+    display: none;
+  }
+
+  #check:checked ~ .sidebar a {
+    font-size: 20px;
+    margin-left: 170px;
+    width: 80px;
+  }
+
+  .content {
+    margin-left: 250px;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    transition: 0.5s;
+  }
+
+  #check:checked ~ .content {
+    margin-left: 60px;
+  }
+
+  #check {
+    display: none;
+  }
+</style>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+/>
+
+<input type="checkbox" id="check" />
+<!--header area start-->
+<header>
+  <label for="check">
+    <i
+      style="left: 200px; margin-top: 17px"
+      class="fas fa-bars"
+      id="sidebar_btn"
+    ></i>
+  </label>
+  <div class="left_area">
+    <h3>Online Exam</h3>
+  </div>
+  <div class="right_area">
+    <a
+      href="/logout"
+      class="logout_btn"
+      style="border-radius: 0px"
+      id="deleteCookiebtn"
+      >Logout</a
+    >
+  </div>
+</header>
+<!--header area end-->
+<!--sidebar start-->
+<div class="sidebar">
+  <center>
+    <div class="circle">
+      <div class="profile">
+        <img
+          src="{{ url_for('uploaded_file', filename=student.profile_image)}}"
+          class="profile_image"
+          alt=""
+        />
+      </div>
+
+      <div class="profiletext">
+        <p style="color: rgb(255, 255, 255)">Welcome {{ student.fullname }}</p>
+      </div>
+    </div>
+    <p style="color: rgb(255, 255, 255)">Contact: {{ student.contact }}</p>
+
+    <p style="color: #fff">Address: {{student.address}}</p>
+  </center>
+
+  <a href="/student/student-dashboard"
+    ><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a
+  >
+  <a href="/student/student-exam"
+    ><i class="fas fa-book"></i><span>Examination</span></a
+  >
+  <a href="/student/student-marks"
+    ><i class="fas fa-sort-numeric-up"></i><span>My Marks</span></a
+  >
+</div>
+
+<div class="content">
+  <br /><br /><br /><br /><br />
+  {% block content %}{% endblock %}
+  <strong style="color: red; line-height: 50px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; word-spacing: 10px; font-size:larger;">
+    <ol>
+      <li>
+        You will have a single opportunity to select answers for each question,
+        once you have made your selection, the remaining options will become
+        disabled.
+      </li>
+      <li>
+        By refreshing the page, the question will be altered, and the answer
+        you previously chose will result in a deduction of marks once the page
+        is refreshed.
+      </li>
+      <li>
+        You will have a single opportunity to participate in the examination.
+      </li>
+    </ol>
+  </strong>
+  <br><br><br><br><br><br><br><br><br><br><br><br>
+
+  {% include "exam/footer.html" %}
+</div>
+<script>
+  function deleteCookie(name) {
+    document.cookie =
+      name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  }
+
+  document.getElementById("deleteCookiebtn").onclick = function () {
+    deleteCookie("Marks");
+    deleteCookie("Selected Answer");
+  };
+
+  const text = document.querySelector(".profiletext p");
+  text.innerHTML = text.innerText
+    .split("")
+    .map(
+      (cahr, i) =>
+        `<span style="transform:rotate(${i * 15.1}deg)">${cahr}</span>`
+    )
+    .join("");
+</script>

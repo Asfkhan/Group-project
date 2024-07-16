@@ -1,0 +1,26 @@
+{% include "exam/navbar.html" %}
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+<meta http-equiv="refresh" content="0; url=studentlogin.html">
+{% block title %}
+Student SignUp Form
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Student SignUp Form</h1>
+  {{ wtf.quick_form(form) }}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li style="color: red;">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
+</div>
+
+<br><br><br>
+{% include "exam/footer.html" %}
+{% endblock %}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% include "exam/navbar.html" %} {% block content %}
+<head>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+  <meta charset="utf-8" />
+  <title>Skill Score</title>
+</head>
+<style>
+
+  .member {
+    background-size: cover ;
+    mix-blend-mode: multiply;
+    background-position: center;
+    position: relative;
+    text-align: center;
+    margin: 10px; 
+    border: 2px groove skyblue; 
+    border-radius: 5px; 
+    width: calc(33% - 20px); 
+  }
+
+  .member img {
+    width: 100%; 
+    margin-bottom: 10px; 
+    mix-blend-mode: multiply;
+  }
+  h3::before {
+    content: open-quote;
+    font-size: 100px;
+    color: darkseagreen;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    transform: translateY(30px); /* move the quote up a bit */
+    display: inline-block; }
+</style>
+<body>
+  <br /><br />
+
+  <center>
+    <h3>
+      Our Team: The Brains Behind the Skill Score Project Let's meet the
+      developers who have contributed their expertise to ensure a seamless and
+      effective learning experience for you.
+    </h3>
+  </center>
+ <center>
+  <div class="about-us-container">
+    <div class="member">
+      <img src="/static/Images/group.png" alt="Member Name">
+    </div>
+    </div>
+
+ </center>
+  
+  {% endblock content %}
+  <br /><br /><br /><br /><br /><br /><br /><br /><br />
+  {% include "exam/footer.html" %}
+</body>

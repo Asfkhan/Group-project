@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+{% extends 'student/student_exam.html' %} {% block content %}
+<head>
+  <title>Exam Started</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+    rel="stylesheet"
+    id="bootstrap-css"
+  />
+
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<style media="screen">
+  body {
+    counter-reset: section;
+  }
+
+  strong::before {
+    counter-increment: section;
+    content: "Q" counter(section) ".";
+  }
+</style>
+<body>
+  <div class="jumbotron my-4">
+    <form class="form" autocomplete="off" method="POST" action="/submit_marks">
+      <input
+        type="text"
+        name="course_no"
+        value="{{ questions[0][1] }}"
+        readonly
+        style="display: none"
+      />
+      <h2 style="text-align: center">Topic: {{ questions[0][7] }}</h2>
+      {% for q in questions %}
+      <strong class="text-danger">{{q[2]}}</strong>
+      <span style="text-align: right">marks[1]</span>
+      <div class="form-check-group">
+        <div class="form-check mx-4">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="marksid_{{ loop.index }}"
+            value="Option1"
+            onclick="saveAns(this)"
+            onchange="checkCheckboxCount()"
+          />
+          <label class="form-check-label"> {{q[3]}} </label>
+        </div>
+
+        <div class="form-check mx-4">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="marksid_{{ loop.index }}"
+            value="Option2"
+            onclick="saveAns(this)"
+            onchange="checkCheckboxCount()"
+          />
+          <label class="form-check-label"> {{q[4]}} </label>
+        </div>
+
+        <div class="form-check mx-4">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="marksid_{{ loop.index }}"
+            value="Option3"
+            onclick="saveAns(this)"
+            onchange="checkCheckboxCount()"
+          />
+          <label class="form-check-label" for="option3"> {{ q[5] }} </label>
+        </div>
+
+        <div class="form-check mx-4">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="marksid_{{ loop.index }}"
+            value="Option4"
+            onclick="saveAns(this)"
+            onchange="checkCheckboxCount()"
+          />
+          <label class="form-check-label" for="option4"> {{q[6]}} </label>
+        </div>
+
+        <div style="display: none">
+          <input type="text" id="ansID" value="{{ q[8] }}" />
+          <!-- <label class="form-check-label" for="option5"> </label> -->
+        </div>
+      </div>
+
+      {% endfor %}
+      <input type="hidden" name="selected_marks" id="selectedMarks" value="" />
+      <button
+        class="btn btn-success btn-sm"
+        style="border-radius: 0px"
+        id="submitBtn"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const url = new URL(window.location.href);
+    var examId = url.pathname.split("/")[2];
+    var ans = [];
+    var correctans = document.getElementById("ansID").value;
+
+    function saveAns(checkbox) {
+      if (checkbox.checked) {
+        ans.push(checkbox.value);
+        var selectedMarks = document.getElementById("selectedMarks");
+        var currentValue = selectedMarks.value;
+        var checkboxName = checkbox.name;
+        var checkboxValue = checkbox.value;
+
+        if (checkbox.checked) {
+          if (!currentValue.includes(checkboxName)) {
+            selectedMarks.value += checkboxName + ":" + checkboxValue + ",";
+          }
+        } else {
+          selectedMarks.value = currentValue.replace(
+            checkboxName + ":" + checkboxValue + ",",
+            ""
+          );
+        }
+        // Disable rest checkbox including self
+
+        var parentContainer = checkbox.closest(".form-check-group");
+        var checkboxes = parentContainer.querySelectorAll(
+          'input[type="checkbox"]'
+        );
+        // Loop through all checkboxes and disable them
+        checkboxes.forEach(function (cb) {
+          cb.disabled = true;
+        });
+      } else {
+        var removecheck = ans.indexOf(checkbox.value);
+        if (removecheck > -1) {
+          ans.splice(removecheck, 1);
+        }
+      }
+      var count = 0;
+      for (var i in ans) {
+        if (ans[i] == correctans) {
+          count++;
+        } else {
+          var count2 = count - 1;
+        }
+        // console.log(count)
+        document.cookie = "Marks = " + count + "; path=/";
+        document.cookie =
+          "Selected Answer = " + JSON.stringify(ans) + "; path=/";
+      }
+
+      // console.log(ans)
+    }
+    function getCurrentCookie(name) {
+      const cokiess = document.cookie.split(";");
+      for (let i = 0; i < cokiess.length; i++) {
+        const cokiesss = cokiess[i].trim();
+        if (cokiesss.startsWith(name + "=")) {
+          return cokiesss.substring(name.length + 1);
+        }
+      }
+      return null;
+    }
+    var currentMarks = getCurrentCookie("Marks");
+    function checkCheckboxCount() {
+      // Get all checkboxes
+      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      var checkedCount = 0;
+
+      // Count checked checkboxes
+      checkboxes.forEach(function (checkbox) {
+        if (checkbox.checked) {
+          checkedCount++;
+        }
+      });
+      // console.log(checkedCount)
+      if (checkedCount >= 40) {
+        document.getElementById("submitBtn").classList.remove("disabled");
+        document
+          .getElementById("submitBtn")
+          .setAttribute("href", "/student/calculate_marks");
+      } else {
+        document.getElementById("submitBtn").classList.add("disabled");
+        document.getElementById("submitBtn").removeAttribute("href");
+      }
+    }
+  </script>
+
+  <br /><br /><br /><br /><br /><br />
+  {% endblock content %}
+</body>
