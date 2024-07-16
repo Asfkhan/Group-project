@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@hostname/dbname'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2//aseef:dmABnCUras8QT6CgApZk4BtEXz1MQIGX@dpg-cqalhmggph6c73f61sc0-a:5432/asf'
 Session(app)
 
 db.init_app(app)
