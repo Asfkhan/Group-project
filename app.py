@@ -14,7 +14,6 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'aseef_swati_parth_prakash_ninad')
 Session(app)
 
 db.init_app(app)
