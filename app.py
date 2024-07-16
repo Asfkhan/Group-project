@@ -49,7 +49,7 @@ def contact():
             password=form.password.data,
             profile_image=form.upload.data.filename
         )
-        upload_dir = 'static/Images'
+        upload_dir = 'static/images'
         if not os.path.exists(upload_dir):
             os.makedirs(upload_dir)
         form.upload.data.save(os.path.join(upload_dir, form.upload.data.filename))
