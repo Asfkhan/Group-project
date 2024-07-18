@@ -39,7 +39,7 @@ def index():
 def contact():
     form = SignupForm()
     if form.validate_on_submit():
-        contact_number = str(form.contact.data).strip()
+        contact_number = form.contact.data
         existing_student = Student.query.filter_by(contact=contact_number).first()
         if existing_student:
             flash('Student already exists!')
@@ -68,7 +68,7 @@ def uploaded_file(filename):
 def student_login():
     loginForm = LoginForm()
     if loginForm.validate_on_submit():
-        check_contact_number = str(loginForm.contact.data).strip()
+        check_contact_number = loginForm.contact.data
         check_password = loginForm.password.data
         existing_student = Student.query.filter_by(contact=check_contact_number).first()
         # existing_password = Student.query.filter_by(password=check_password).first()
