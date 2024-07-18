@@ -3,6 +3,9 @@
 {% block title %} {% endblock %}
 
 <style media="screen">
+  ol li {
+    text-align: justify;
+  }
   .circle {
     position: relative;
     width: 200px;
@@ -244,24 +247,38 @@
 <div class="content">
   <br /><br /><br /><br /><br />
   {% block content %}{% endblock %}
-  <strong style="color: red; line-height: 50px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; word-spacing: 10px; font-size:larger;">
+  <strong
+    style="
+      color: red;
+      line-height: 50px;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+        'Lucida Sans', Arial, sans-serif;
+      word-spacing: 10px;
+      font-size: larger;
+    "
+  >
+    <h4 style="text-align: center;">Points to Remember</h4>
     <ol>
+      <li>
+        Remember that clicking the Examination Tab will result in your marks
+        being recalculated.
+      </li>
       <li>
         You will have a single opportunity to select answers for each question,
         once you have made your selection, the remaining options will become
         disabled.
       </li>
       <li>
-        By refreshing the page, the question will be altered, and the answer
-        you previously chose will result in a deduction of marks once the page
-        is refreshed.
+        By refreshing the page, the question will be altered, and the answer you
+        previously chose will result in a deduction of marks once the page is
+        refreshed.
       </li>
       <li>
         You will have a single opportunity to participate in the examination.
       </li>
     </ol>
   </strong>
-  <br><br><br><br><br><br><br><br><br><br><br><br>
+  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
   {% include "exam/footer.html" %}
 </div>
