@@ -62,7 +62,7 @@ def contact():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory('static/Images', filename)
+    return send_from_directory('static/images', filename)
 
 @app.route('/student/studentlogin', methods=['GET', 'POST'])
 def student_login():
