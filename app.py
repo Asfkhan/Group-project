@@ -46,7 +46,7 @@ def contact():
             return render_template('/student/studentsignup.html', form=form)
         student = Student(
             fullname=form.fullname.data,
-            contact=str(form.contact.data),
+            contact=form.contact.data,
             address=form.address.data,
             password=form.password.data,
             profile_image=form.upload.data.filename
