@@ -12,7 +12,7 @@ import random
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Aptech123@localhost/testdb'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://aseef:dmABnCUras8QT6CgApZk4BtEXz1MQIGX@dpg-cqalhmggph6c73f61sc0-a:5432/asf'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://aseef:dmABnCUras8QT6CgApZk4BtEXz1MQIGX@dpg-cqalhmggph6c73f61sc0-a:5432/asf'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -39,14 +39,14 @@ def index():
 def contact():
     form = SignupForm()
     if form.validate_on_submit():
-        contact_number = form.contact.data
+        contact_number = str(form.contact.data).strip()
         existing_student = Student.query.filter_by(contact=contact_number).first()
         if existing_student:
             flash('Student already exists!')
             return render_template('/student/studentsignup.html', form=form)
         student = Student(
             fullname=form.fullname.data,
-            contact=form.contact.data,
+            contact=str(form.contact.data),
             address=form.address.data,
             password=form.password.data,
             profile_image=form.upload.data.filename
@@ -68,7 +68,7 @@ def uploaded_file(filename):
 def student_login():
     loginForm = LoginForm()
     if loginForm.validate_on_submit():
-        check_contact_number = loginForm.contact.data
+        check_contact_number = str(loginForm.contact.data).strip()
         check_password = loginForm.password.data
         existing_student = Student.query.filter_by(contact=check_contact_number).first()
         # existing_password = Student.query.filter_by(password=check_password).first()
@@ -77,7 +77,7 @@ def student_login():
             session['exam_over'] = True
             return render_template('/student/studentbase.html', student=existing_student)
         else:
-            flash('Student not exists! Please Sign Up.')
+            flash('Invalid contact number or password. Please try again or sign up.')
             return render_template('/student/studentlogin.html', loginForm=loginForm)
     return render_template('/student/studentlogin.html', loginForm=loginForm)
 
