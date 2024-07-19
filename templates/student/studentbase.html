@@ -217,11 +217,11 @@
   <center>
     <div class="circle">
       <div class="profile">
-        <img
-          src="{{ url_for('uploaded_file', filename=student.profile_image)}}"
-          class="profile_image"
-          alt=""
-        />
+        {% if student.profile_image %}
+        <img src="{{ url_for('uploaded_file', filename=student.profile_image) }}" alt="Profile Image" class="profile_image">
+        {% else %}
+        <p>No profile image uploaded.</p>
+        {% endif %}
       </div>
 
       <div class="profiletext">

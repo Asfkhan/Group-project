@@ -6,6 +6,7 @@ from flask_session import Session
 from sqlalchemy import text
 from functools import wraps
 from flask_bootstrap import Bootstrap
+from werkzeug.utils import secure_filename
 import os
 # from config import Config
 import random
@@ -17,6 +18,10 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = 'aseef_swati_parth_prakash_ninad'
+UPLOAD_FOLDER = 'static/images'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 Session(app)
 
 db.init_app(app)
@@ -35,6 +40,10 @@ def login_required(f):
 def index():
     return render_template('/exam/index.html')
 
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route('/student/studentsignup', methods=['GET', 'POST'])
 def contact():
     form = SignupForm()
@@ -44,17 +53,21 @@ def contact():
         if existing_student:
             flash('Student already exists!')
             return render_template('/student/studentsignup.html', form=form)
+        
+        file = form.upload.data
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        else:
+            filename = None
+            
         student = Student(
             fullname=form.fullname.data,
             contact=str(form.contact.data),
             address=form.address.data,
             password=form.password.data,
-            profile_image=form.upload.data.filename
+            profile_image=filename
         )
-        upload_dir = 'static/images'
-        if not os.path.exists(upload_dir):
-            os.makedirs(upload_dir)
-        form.upload.data.save(os.path.join(upload_dir, form.upload.data.filename))
         db.session.add(student)
         db.session.commit()
         return redirect(url_for('student_login'))
@@ -62,7 +75,7 @@ def contact():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory('static/images', filename)
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/student/studentlogin', methods=['GET', 'POST'])
 def student_login():
