@@ -12,7 +12,7 @@ import random
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Aptech123@localhost/testdb'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://aseef:dmABnCUras8QT6CgApZk4BtEXz1MQIGX@dpg-cqalhmggph6c73f61sc0-a:5432/asf'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://aseef:dmABnCUras8QT6CgApZk4BtEXz1MQIGX@dpg-cqalhmggph6c73f61sc0-a:5432/asf'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.config['SESSION_TYPE'] = 'filesystem'
