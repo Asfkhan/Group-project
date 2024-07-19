@@ -1,4 +1,4 @@
-#Python3 #Flask3 #Jinja2 #Postgresql #MySQL8 #HTML5 #CSS3 #Javsript #Jqueryv1 #Bootstrap3![readme6](https://github.com/user-attachments/assets/3e3644b3-459b-43cb-ba19-67ca743cecdc)
+![readme6](https://github.com/user-attachments/assets/3e3644b3-459b-43cb-ba19-67ca743cecdc)
 ![readme5](https://github.com/user-attachments/assets/bc910bea-7f04-41a1-a2b3-d71bdcd0593e)
 ![readme4](https://github.com/user-attachments/assets/97b51fdb-aaba-4c0a-a9e3-50d301366ebb)
 ![readme3](https://github.com/user-attachments/assets/6ddf9b37-d051-45b0-8e4f-ad46fb53c0a2)
