@@ -224,9 +224,6 @@ def get_course():
 def get_exam_questions(exam_id):
     return db.session.execute(text("SELECT * FROM exam_questions WHERE course_id = :exam_id"), {'exam_id': exam_id}).fetchall()
 
-@app.route("/adminclick")
-def adminclick():
-    return render_template("exam/index.html")
 
 @app.route("/teacherclick")
 def teacherclick():
